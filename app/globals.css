@@ -1,26 +1,132 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+@layer base {
+  :root {
+    --background: #fbfbf2; /* Linho Fino */
+    --foreground: #25221e; /* Madeira de Acácia escura */
+
+    --card: #ffffff;
+    --card-foreground: #25221e;
+
+    --popover: #ffffff;
+    --popover-foreground: #25221e;
+
+    --primary: #1b4965; /* Azul Celeste / Tekhelet */
+    --primary-foreground: #ffffff;
+
+    --secondary: #f3efe6; /* Linho cru */
+    --secondary-foreground: #463f3a;
+
+    --muted: #f0ebe1;
+    --muted-foreground: #6b635b;
+
+    --accent: #d4af37; /* Ouro Batido / Zahav */
+    --accent-foreground: #1c1708;
+
+    --destructive: #9e2a2b; /* Carmesim / Tola'at Shani */
+    --destructive-foreground: #ffffff;
+
+    --border: #e2ddd3; /* Prata sutil */
+    --input: #e2ddd3;
+    --ring: #1b4965;
+
+    --radius: 0.75rem;
+
+    /* Tokens Exclusivos do Tabernáculo */
+    --tabernacle-blue: #1b4965;
+    --tabernacle-purple: #5c2a6b;
+    --tabernacle-crimson: #9e2a2b;
+    --tabernacle-gold: #d4af37;
+    --tabernacle-silver: #e5e7eb;
+    --tabernacle-bronze: #7f4f24;
+    --tabernacle-wood: #463f3a;
+    --tabernacle-linen: #fbfbf2;
+  }
+
+  .dark {
+    --background: #0e0f12; /* Santuário Noturno */
+    --foreground: #f4efe6;
+
+    --card: #15171c;
+    --card-foreground: #f4efe6;
+
+    --popover: #15171c;
+    --popover-foreground: #f4efe6;
+
+    --primary: #4ea8de; /* Azul Celeste Noturno */
+    --primary-foreground: #091e2b;
+
+    --secondary: #22262f;
+    --secondary-foreground: #e4dfd7;
+
+    --muted: #1c2027;
+    --muted-foreground: #9ca3af;
+
+    --accent: #f3c948; /* Ouro Luminoso */
+    --accent-foreground: #1a1403;
+
+    --destructive: #f26463; /* Carmesim Vibrante */
+    --destructive-foreground: #ffffff;
+
+    --border: #282d37;
+    --input: #282d37;
+    --ring: #4ea8de;
+
+    /* Tokens Tabernáculo - Modo Noturno */
+    --tabernacle-blue: #4ea8de;
+    --tabernacle-purple: #a663cc;
+    --tabernacle-crimson: #f26463;
+    --tabernacle-gold: #f3c948;
+    --tabernacle-silver: #2d3139;
+    --tabernacle-bronze: #b07d4f;
+    --tabernacle-wood: #8a817c;
+    --tabernacle-linen: #15171c;
+  }
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --color-tabernacle-blue: var(--tabernacle-blue);
+  --color-tabernacle-purple: var(--tabernacle-purple);
+  --color-tabernacle-crimson: var(--tabernacle-crimson);
+  --color-tabernacle-gold: var(--tabernacle-gold);
+  --color-tabernacle-silver: var(--tabernacle-silver);
+  --color-tabernacle-bronze: var(--tabernacle-bronze);
+  --color-tabernacle-wood: var(--tabernacle-wood);
+  --color-tabernacle-linen: var(--tabernacle-linen);
 }
 
 body {
-  background: var(--background);
+  background-color: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  min-height: 100vh;
+  font-feature-settings: "rlig" 1, "calt" 1;
+}
+
+/* Efeito sutil de ouro batido em bordas e badges */
+.gold-glow {
+  box-shadow: 0 0 15px -3px rgba(212, 175, 55, 0.3);
+}
+
+.dark .gold-glow {
+  box-shadow: 0 0 20px -3px rgba(243, 201, 72, 0.4);
 }
