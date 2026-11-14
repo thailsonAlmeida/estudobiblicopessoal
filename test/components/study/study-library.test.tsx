@@ -170,4 +170,53 @@ describe("StudyLibrary (Biblioteca de Estudos Pessoais)", () => {
     expect(pdfHeader).toContain("%PDF-1.4");
     expect(pdfTail).toContain("%%EOF");
   });
+
+  it("switches between Cards, Lista Compacta and Grouped by Book views, and paginates large sets", async () => {
+    // Adiciona 15 estudos para testar paginação (12 por página padrão)
+    const manyStudies: Study[] = Array.from({ length: 15 }, (_, idx) => ({
+      id: `bulk-${idx + 1}`,
+      methodId: "01_DEVOCIONAL",
+      title: `Estudo ${String(idx + 1).padStart(2, "0")}`,
+      book: idx < 8 ? "Gênesis" : "Apocalipse",
+      chapter: idx + 1,
+      verses: "1-5",
+      status: idx % 2 === 0 ? "completed" : "draft",
+      currentStep: 4,
+      formData: {},
+      application4P: {
+        text: "Aplicação de teste",
+        isPersonal: true,
+        isPractical: true,
+        isPossible: true,
+        isMeasurable: true,
+      },
+      tags: [],
+      createdAt: `2026-11-${String((idx % 20) + 1).padStart(2, "0")}T10:00:00Z`,
+      updatedAt: `2026-11-${String((idx % 20) + 1).padStart(2, "0")}T10:00:00Z`,
+    }));
+
+    await db.studies.clear();
+    await db.studies.bulkPut(manyStudies);
+
+    render(<StudyLibrary />);
+
+    await waitFor(() => {
+      expect(screen.getByText(/Página 1 de 2/i)).toBeInTheDocument();
+    });
+
+    // Navegar para Página 2
+    const nextBtn = screen.getByRole("button", { name: /Próxima/i });
+    fireEvent.click(nextBtn);
+
+    expect(await screen.findByText(/Página 2 de 2/i)).toBeInTheDocument();
+
+    // Alternar para modo Agrupado por Livro
+    const groupedBtn = screen.getByTitle(/Agrupar por Livro Bíblico/i);
+    fireEvent.click(groupedBtn);
+
+    expect(await screen.findByText("8 estudos")).toBeInTheDocument();
+    expect(screen.getByText("7 estudos")).toBeInTheDocument();
+    expect(screen.getAllByText("Gênesis").length).toBeGreaterThanOrEqual(2);
+    expect(screen.getAllByText("Apocalipse").length).toBeGreaterThanOrEqual(2);
+  });
 });
