@@ -15,14 +15,78 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+const APP_NAME = "Estudo Bíblico Pessoal";
+const APP_TITLE = "Estudo Bíblico Pessoal • 12 Métodos de Rick Warren";
+const APP_DESCRIPTION =
+  "Aprofunde sua intimidade com Deus através dos 12 métodos bíblicos de Rick Warren estruturados na jornada do Tabernáculo. Aplicativo gratuito, 100% offline, local-first e sem culpa.";
+const APP_URL = "https://estudobiblicopessoal.vercel.app";
+
 export const metadata: Metadata = {
-  title: "Estudo Bíblico Pessoal • 12 Métodos de Rick Warren",
-  description:
-    "Aplicativo de estudo bíblico pessoal guiado, gamificado e local-first, inspirado nas 12 maneiras de estudar a Bíblia de Rick Warren e no Tabernáculo.",
+  metadataBase: new URL(APP_URL),
+  title: {
+    default: APP_TITLE,
+    template: `%s | ${APP_NAME}`,
+  },
+  description: APP_DESCRIPTION,
+  applicationName: APP_NAME,
+  keywords: [
+    "Estudo Bíblico",
+    "Estudo Bíblico Pessoal",
+    "Rick Warren",
+    "12 Métodos de Estudo Bíblico",
+    "Tabernáculo",
+    "Devocional",
+    "PWA",
+    "Local-First",
+    "Menorá",
+    "Regra dos 4Ps",
+    "Bíblia Sagrada",
+  ],
+  authors: [{ name: APP_NAME, url: APP_URL }],
+  creator: APP_NAME,
+  publisher: APP_NAME,
+  category: "Religion & Spirituality",
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
+  },
+  openGraph: {
+    type: "website",
+    locale: "pt_BR",
+    url: APP_URL,
+    siteName: APP_NAME,
+    title: APP_TITLE,
+    description: APP_DESCRIPTION,
+    images: [
+      {
+        url: "/opengraph-image",
+        width: 1200,
+        height: 630,
+        alt: "Estudo Bíblico Pessoal — 12 Métodos de Rick Warren",
+        type: "image/png",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: APP_TITLE,
+    description: APP_DESCRIPTION,
+    images: ["/opengraph-image"],
+  },
   appleWebApp: {
     capable: true,
-    title: "Estudo Bíblico",
+    title: APP_NAME,
     statusBarStyle: "default",
+  },
+  formatDetection: {
+    telephone: false,
   },
 };
 
